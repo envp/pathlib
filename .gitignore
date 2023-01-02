@@ -37,3 +37,6 @@ build
 cmake_install
 CMakeFiles/
 CMakeCache.txt
+
+# clangd
+.cache
