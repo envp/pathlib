@@ -1,20 +1,30 @@
 Checks: >-
-    *
+    *,
+    -abseil-*,
+    -altera-*,
+    -android-*,
+    -fuchsia-*,
+    -llvmlibc-*,
+    -modernize-use-trailing-return-type,
+    -mpi-*,
+    -objc-*,
+    -openmp-*,
+    -zircon-*
 CheckOptions:
 - key:             readability-identifier-naming.ClassCase
   value:           CamelCase
 - key:             readability-identifier-naming.EnumCase
   value:           CamelCase
 - key:             readability-identifier-naming.FunctionCase
-  value:           CamelCase
+  value:           lower_case
 - key:             readability-identifier-naming.MemberCase
-  value:           snake_case
+  value:           lower_case
 - key:             readability-identifier-naming.ParameterCase
-  value:           snake_case
+  value:           lower_case
 - key:             readability-identifier-naming.UnionCase
   value:           CamelCase
 - key:             readability-identifier-naming.VariableCase
-  value:           CamelCase
+  value:           lower_case
 - key:             readability-identifier-naming.ConstantCase
   value:           UPPER_CASE
 - key:             readability-identifier-naming.IgnoreMainLikeFunctions
@@ -23,3 +33,5 @@ CheckOptions:
   value:           1
 - key:             modernize-use-default-member-init.UseAssignment
   value:           1
+- key:             modernize-use-nodiscard.ReplacementString
+  value:           NODISCARD
