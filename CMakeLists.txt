@@ -7,11 +7,24 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake/Modules")
 include(ColorDiagnostics)
 include(CCache REQUIRED)
 
-project(example LANGUAGES CXX)
-add_library(example STATIC)
+project(pathlib LANGUAGES CXX)
 
 set(INCLUDEDIR "${CMAKE_CURRENT_SOURCE_DIR}/src/include")
 set(LIBDIR "${CMAKE_CURRENT_SOURCE_DIR}/src/lib")
 
-target_include_directories(example PUBLIC ${INCLUDEDIR})
-target_sources(example PUBLIC ${LIBDIR}/hello.cpp)
+add_library(pathlib STATIC)
+target_include_directories(pathlib PUBLIC ${INCLUDEDIR})
+target_sources(
+  pathlib
+  PUBLIC
+  ${LIBDIR}/pathlib/annotations.cpp
+  ${LIBDIR}/pathlib/assertions.cpp
+  ${LIBDIR}/pathlib/pure_path.cpp
+)
+message(STATUS "Linker: ${CMAKE_CXX_LINK_EXECUTABLE}")
+
+if (ENABLE_TESTS)
+  enable_testing()
+  list(APPEND CMAKE_CTEST_ARGUMENTS "--output-on-failure")
+  add_subdirectory(tests)
+endif()
