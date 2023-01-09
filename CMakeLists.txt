@@ -12,6 +12,14 @@ project(pathlib LANGUAGES CXX)
 set(INCLUDEDIR "${CMAKE_CURRENT_SOURCE_DIR}/src/include")
 set(LIBDIR "${CMAKE_CURRENT_SOURCE_DIR}/src/lib")
 
+add_library(pathlib-utils STATIC)
+target_sources(
+  pathlib-utils
+  PUBLIC
+  ${LIBDIR}/pathlib/utils/string_utils.cpp
+)
+target_include_directories(pathlib-utils PUBLIC ${INCLUDEDIR})
+
 add_library(pathlib STATIC)
 target_include_directories(pathlib PUBLIC ${INCLUDEDIR})
 target_sources(

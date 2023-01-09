@@ -1,22 +1,16 @@
 #ifndef PATHLIB_PURE_PATH_HPP
 #define PATHLIB_PURE_PATH_HPP
 
+#include "pathlib/annotations.hpp"
+#include "pathlib/utils/string_utils.hpp"
+
 #include <cassert>
 #include <optional>
 #include <string>
 #include <string_view>
 #include <vector>
 
-#include "pathlib/annotations.hpp"
-
 namespace pathlib {
-
-namespace detail {
-
-/// Concatenate the vector of strings with the given delimiting character.
-std::string join(char delimiter, const std::vector<std::string> &parts);
-
-} // namespace detail
 
 /// Offers path operations that do not need filesystem access.
 ///
