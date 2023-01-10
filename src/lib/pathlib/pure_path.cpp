@@ -31,6 +31,8 @@ PurePosixPath::PurePosixPath(std::string_view path)
 
 bool PurePosixPath::is_absolute() const { return d_is_absolute; }
 
+bool PurePosixPath::is_root() const { return d_is_absolute && d_parts.empty(); }
+
 const std::vector<std::string> &PurePosixPath::parts() const { return d_parts; }
 
 } // namespace pathlib

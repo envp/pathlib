@@ -28,6 +28,15 @@ public:
   PATHLIB_NODISCARD bool is_absolute() const {
     return static_cast<const Flavour *>(this)->is_absolute();
   }
+
+  /// Return the filename component of the path. The contained
+  PATHLIB_NODISCARD std::optional<std::string_view> name() const {
+    auto *path_flavour = static_cast<const Flavour *>(this);
+    if (path_flavour->is_root()) {
+      return std::nullopt;
+    }
+    return path_flavour->d_parts.back();
+  }
 };
 
 struct PurePosixPath : PurePath<PurePosixPath> {
@@ -36,6 +45,9 @@ public:
 
   /// Return if the contained path is absolute
   PATHLIB_NODISCARD bool is_absolute() const;
+
+  /// Return true if the path is a root
+  PATHLIB_NODISCARD bool is_root() const;
 
   /// Return the components of the contained path
   PATHLIB_NODISCARD const std::vector<std::string> &parts() const;
