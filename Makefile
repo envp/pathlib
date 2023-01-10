@@ -26,6 +26,11 @@ clean:
 rebuild: | clean build
 .PHONY: rebuild
 
+install: build
+	cmake --build ${BUILDDIR} --target install
+.PHONY: install
+.SILENT: install
+
 test: build
 	cmake --build ${BUILDDIR} --target test
 .PHONY: test

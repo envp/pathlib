@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.23)
+project(pathlib LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -7,7 +8,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake/Modules")
 include(ColorDiagnostics)
 include(CCache REQUIRED)
 
-project(pathlib LANGUAGES CXX)
+include(GNUInstallDirs)
 
 set(INCLUDEDIR "${CMAKE_CURRENT_SOURCE_DIR}/src/include")
 set(LIBDIR "${CMAKE_CURRENT_SOURCE_DIR}/src/lib")
@@ -29,10 +30,23 @@ target_sources(
   ${LIBDIR}/pathlib/assertions.cpp
   ${LIBDIR}/pathlib/pure_path.cpp
 )
-message(STATUS "Linker: ${CMAKE_CXX_LINK_EXECUTABLE}")
+target_link_libraries(pathlib PRIVATE pathlib-utils)
 
 if (ENABLE_TESTS)
   enable_testing()
   list(APPEND CMAKE_CTEST_ARGUMENTS "--output-on-failure")
   add_subdirectory(tests)
 endif()
+
+
+install(
+  TARGETS pathlib
+  EXPORT pathlib
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/pathlib
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/pathlib
+  PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/pathlib
+)
+install(
+  DIRECTORY ${INCLUDEDIR}/pathlib
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
