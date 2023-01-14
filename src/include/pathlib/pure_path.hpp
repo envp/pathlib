@@ -14,8 +14,8 @@ namespace pathlib {
 
 /// Offers path operations that do not need filesystem access.
 ///
-/// It offers an interface to manipulate the contents of a path string, without
-/// any filesystem I/O.
+/// It offers an interface to manipulate the contents of a path string,
+/// without any filesystem I/O.
 template <class Flavour>
 struct PurePath {
 public:

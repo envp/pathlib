@@ -36,7 +36,7 @@ std::vector<std::string> split_on(char delimiter, std::string_view data) {
 
 std::vector<std::string>
 split_on(char delimiter, std::string_view data,
-         std::function<bool(std::string_view)> predicate) {
+         const std::function<bool(std::string_view)> &predicate) {
   std::vector<std::string> components;
   if (data.empty()) {
     return components;
