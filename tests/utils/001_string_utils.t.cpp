@@ -18,3 +18,26 @@ TEST(StringUtilsTest, Join) {
   EXPECT_THAT(string_utils::join('\0', {"foo", "bar", "qux"}),
               "foo\0bar\0qux"s);
 }
+
+TEST(StringUtilsTest, Split) {
+  using namespace std::string_literals;
+  using Container = std::vector<std::string>;
+
+  EXPECT_THAT(string_utils::split_on(',', ""),
+              ::testing::ContainerEq<Container>({}));
+  EXPECT_THAT(string_utils::split_on(',', "foo"),
+              ::testing::ContainerEq<Container>({"foo"}));
+  EXPECT_THAT(string_utils::split_on(',', "foo,bar,qux"),
+              ::testing::ContainerEq<Container>({"foo", "bar", "qux"}));
+
+  EXPECT_THAT(string_utils::split_on('/', "foo/bar/qux"),
+              ::testing::ContainerEq<Container>({"foo", "bar", "qux"}));
+
+  EXPECT_THAT(string_utils::split_on('\\', "foo\\bar\\qux"),
+              ::testing::ContainerEq<Container>({"foo", "bar", "qux"}));
+  EXPECT_THAT(string_utils::split_on('\\', "foo\\bar\\qux"),
+              ::testing::ContainerEq<Container>({"foo", "bar", "qux"}));
+
+  EXPECT_THAT(string_utils::split_on('\0', "foo\0bar\0qux"s),
+              ::testing::ContainerEq<Container>({"foo", "bar", "qux"}));
+}
