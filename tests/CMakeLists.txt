@@ -7,7 +7,8 @@ set(TESTS
 )
 
 foreach(TESTNAME ${TESTS})
-  string(REPLACE "/" "_" TEST_TARGET ${TESTNAME})
+  string(REPLACE "/" "_" TESTNAME_SANITIZED ${TESTNAME})
+  set(TEST_TARGET "${TESTNAME_SANITIZED}.test")
   add_executable(${TEST_TARGET} ${TESTNAME}.t.cpp)
   target_link_libraries(
     ${TEST_TARGET}
@@ -19,4 +20,3 @@ foreach(TESTNAME ${TESTS})
   )
   gtest_discover_tests(${TEST_TARGET})
 endforeach()
-
