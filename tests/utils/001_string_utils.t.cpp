@@ -41,3 +41,28 @@ TEST(StringUtilsTest, Split) {
   EXPECT_THAT(string_utils::split_on('\0', "foo\0bar\0qux"s),
               ::testing::ContainerEq<Container>({"foo", "bar", "qux"}));
 }
+
+TEST(StringUtilsTest, SplitOnPredicate) {
+  using namespace std::string_literals;
+  using Container = std::vector<std::string>;
+
+  auto reject_all = [](auto) { return false; };
+  auto matches_empty_vec = ::testing::ContainerEq<Container>({});
+
+  EXPECT_THAT(string_utils::split_on(',', "", reject_all), matches_empty_vec);
+  EXPECT_THAT(string_utils::split_on(',', "foo", reject_all),
+              matches_empty_vec);
+  EXPECT_THAT(string_utils::split_on(',', "foo,bar,qux", reject_all),
+              matches_empty_vec);
+
+  EXPECT_THAT(string_utils::split_on('/', "foo/bar/qux", reject_all),
+              matches_empty_vec);
+
+  EXPECT_THAT(string_utils::split_on('\\', "foo\\bar\\qux", reject_all),
+              matches_empty_vec);
+  EXPECT_THAT(string_utils::split_on('\\', "foo\\bar\\qux", reject_all),
+              matches_empty_vec);
+
+  EXPECT_THAT(string_utils::split_on('\0', "foo\0bar\0qux"s, reject_all),
+              matches_empty_vec);
+}
