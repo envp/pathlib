@@ -5,6 +5,7 @@
 
 #include <cstddef>
 #include <cstdio>
+#include <exception>
 #include <string>
 #include <string_view>
 
