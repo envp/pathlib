@@ -1,0 +1,39 @@
+name: CI
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+
+jobs:
+  build-matrix:
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+        compiler:
+          - cc: gcc
+            cxx: g++
+          - cc: clang
+            cxx: clang++
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Install googletest
+        uses: MarkusJx/googletest-installer@master
+        with:
+          CC_path: ${{ matrix.compiler.cc }}
+          CXX_path: ${{ matrix.compiler.cxx }}
+      - name: Checkout source
+        uses: actions/checkout@master
+      - name: Build
+        run: |
+          make build
+        env:
+          CC: ${{ matrix.compiler.cc }}
+          CXX: ${{ matrix.compiler.cxx }}
+      - name: Test
+        run: |
+          make test

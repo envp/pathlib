@@ -13,10 +13,11 @@ std::string join(char delimiter, const std::vector<std::string> &parts) {
   if (parts.empty()) {
     return "";
   }
+  auto get_length = [](auto part) { return part.length(); };
   size_t capacity =
-      parts.size() + std::transform_reduce(
-                         std::cbegin(parts), std::cend(parts), 0, std::plus<>(),
-                         [](auto part) { return part.length(); });
+      parts.size() + std::transform_reduce(std::cbegin(parts), std::cend(parts),
+                                           0ULL, std::plus<>(),
+                                           std::move(get_length));
   std::string result;
   result.reserve(capacity);
   auto iter = std::cbegin(parts);

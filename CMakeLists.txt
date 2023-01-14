@@ -29,7 +29,6 @@ include(CTest)
 list(APPEND CMAKE_CTEST_ARGUMENTS "--output-on-failure")
 add_subdirectory(tests)
 
-
 install(
   TARGETS pathlib
   EXPORT pathlib
