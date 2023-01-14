@@ -13,14 +13,6 @@ include(GNUInstallDirs)
 set(INCLUDEDIR "${CMAKE_CURRENT_SOURCE_DIR}/src/include")
 set(LIBDIR "${CMAKE_CURRENT_SOURCE_DIR}/src/lib")
 
-add_library(pathlib-utils STATIC)
-target_sources(
-  pathlib-utils
-  PUBLIC
-  ${LIBDIR}/pathlib/utils/string_utils.cpp
-)
-target_include_directories(pathlib-utils PUBLIC ${INCLUDEDIR})
-
 add_library(pathlib STATIC)
 target_include_directories(pathlib PUBLIC ${INCLUDEDIR})
 target_sources(
@@ -29,14 +21,13 @@ target_sources(
   ${LIBDIR}/pathlib/annotations.cpp
   ${LIBDIR}/pathlib/assertions.cpp
   ${LIBDIR}/pathlib/pure_path.cpp
+  ${LIBDIR}/pathlib/utils/string_utils.cpp
 )
-target_link_libraries(pathlib PRIVATE pathlib-utils)
+target_compile_options(pathlib PRIVATE -Wextra -Wall -pedantic)
 
-if (ENABLE_TESTS)
-  enable_testing()
-  list(APPEND CMAKE_CTEST_ARGUMENTS "--output-on-failure")
-  add_subdirectory(tests)
-endif()
+include(CTest)
+list(APPEND CMAKE_CTEST_ARGUMENTS "--output-on-failure")
+add_subdirectory(tests)
 
 
 install(

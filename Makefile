@@ -4,11 +4,10 @@ BUILDTYPE?=RelWithDebInfo
 
 configure:
 	cmake \
-		-B${BUILDDIR} \
-		-H${SRCDIR} \
 		-DCMAKE_BUILD_TYPE=${BUILDTYPE} \
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
-		-DENABLE_TESTS=ON \
+		-B${BUILDDIR} \
+		-H${SRCDIR}
 
 .PHONY: configure
 .SILENT: configure
