@@ -6,9 +6,9 @@ configure:
 	cmake \
 		-DCMAKE_BUILD_TYPE=${BUILDTYPE} \
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+		-DPATHLIB_BUILD_EXAMPLES=ON \
 		-B${BUILDDIR} \
 		-H${SRCDIR}
-
 .PHONY: configure
 .SILENT: configure
 
