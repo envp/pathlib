@@ -34,8 +34,8 @@ PATHLIB_NORETURN constexpr inline void todo(std::string_view message) {
 
 } // namespace detail
 
-#define PATHLIB_TODO detail::todo
-#define PATHLIB_UNREACHABLE detail::unreachable
+#define PATHLIB_TODO ::pathlib::detail::todo
+#define PATHLIB_UNREACHABLE ::pathlib::detail::unreachable
 
 } // namespace pathlib
 
